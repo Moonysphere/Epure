@@ -9,8 +9,19 @@
     
     <a href="{% url 'index' %}">
         <h1>Epures</h1>
-<a href="{% url 'signup' %}">S'inscrire</a>
     </a>
+  {% if user.is_authenticated%} 
+     {{ user.username }}
+     <a href="{% url 'logout' %}">deconnexion</a>
+  {% else %}
+  <a href="{% url 'login' %}">Connexion</a>
+  <a href="{% url 'signup' %}">S'inscrire</a>
+  {% endif %} 
+
+  {% if user.cart %}
+<a href="{% url 'cart' %}">voir panier ({{ user.cart.orders.count }})</a>
+  {% endif %}
+
 {% block content %}
 {% endblock %}
     
