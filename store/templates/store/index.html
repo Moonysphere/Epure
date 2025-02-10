@@ -4,13 +4,21 @@
 {% block content %}
 
 
-{% for product in products %}
 
-<h2>{{ product.name }}</h2>
-<a href="{{ product.get_absolute_url }}">
-<img src="{{ product.thumbnail.url }}" alt="{{ product.name }}" style="max-width: 300px;">
-</a>
+<div id="product-list">
+    {% for product in products %}
+        <div class="product">
+            <h3>{{ product.name }}</h3>
+            <a href="{{ product.get_absolute_url }}">
+                <img src="{{ product.thumbnail.url }}" alt="{{ product.name }}" style="max-width: 300px;">
+                </a>            
+        </div>
+    {% empty %}
+        <p>Aucun produit trouvé.</p>
+    {% endfor %}
+</div>
 
-{% endfor %}
+
+
 
 {% endblock %}

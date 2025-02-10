@@ -28,6 +28,7 @@ urlpatterns = [
     path('signup/', signup, name='signup'),
     path('logout/', logout_user, name='logout'),
     path('login/', login_user, name='login'),
+    
     path('cart/', cart, name='cart'),
     path('cart/delete', delete_cart, name='delete_cart'),
     path('admin/', admin.site.urls),

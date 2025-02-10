@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from store.models import Product, Cart, Order
-from django.http import HttpResponse
 # Create your views here.
 
 
@@ -46,3 +45,5 @@ def delete_cart(request):
         cart.delete()
 
     return redirect('index')
+
+
