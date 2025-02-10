@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+header { 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  vertical-align: center;
+}
+
+.Boutton {
+  background-color: #2E073F;
+}
+.Boutton a{
+  color: white;
+  text-decoration: none;
+}
+.Logo {
+  max-width: 100%;
+  width: 8rem;
+  height: 8rem;
+  display: block;
+  padding: 1rem;
+}
+
+
+body {
+  background-color: #c8acd6;
+}
+.Epures {
+  text-align: center;
+}
+.product-list {
+  display: flex;
+  gap: 2rem;
+}

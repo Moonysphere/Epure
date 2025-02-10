@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 {% load static %}
 <!DOCTYPE html>
 <html lang="fr">
@@ -27,17 +28,15 @@
   {% if user.cart %}
 <a href="{% url 'cart' %}">voir panier ({{ user.cart.orders.count }})</a>
   {% endif %}
+=======
+{% include 'partials/header.html' %}
+>>>>>>> Stashed changes
 
+<main>
 {% block content %}
+
 {% endblock %}
-
-</body>
-
-    
-</html>
-
-
-
-
-
+</main>
+  
+{% include 'partials/footer.html' %}
 
