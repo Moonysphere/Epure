@@ -12,6 +12,10 @@
     <a href="{% url 'index' %}">
         <h1>Epures</h1>
     </a>    
+   
+    
+
+
   {% if user.is_authenticated%} 
      {{ user.username }}
      <a href="{% url 'logout' %}">deconnexion</a>
@@ -21,12 +25,12 @@
   {% endif %} 
 
   {% if user.cart %}
-<a href="{% url 'cart' %}">voir panier ({{ user.cart.orders.count }})</a>
+<a href="{% url 'cart' %}">voir panier ({{ user.cart.order.count }})</a>
   {% endif %}
 
 {% block content %}
 {% endblock %}
-    
+
 </body>
 
     

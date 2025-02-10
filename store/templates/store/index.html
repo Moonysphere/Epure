@@ -6,6 +6,32 @@
 
 
 <div id="product-list">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="text" name="product_slug" list="products" placeholder="Rechercher un produit">
+        <datalist id="products">
+          {% for product in products %}
+              <option value="{{ product.slug }}">
+          {% endfor %}
+        </datalist>
+        <input type="submit" value="Rechercher">
+      </form>
+      
+      <!-- Affichage du produit trouvé (si existant) -->
+      {% if product %}
+      <h3>Skin trouver</h3>
+      <div class="product">
+        <h3>{{ product.name }}</h3>
+        <a href="{{ product.get_absolute_url }}">
+            <img src="{{ product.thumbnail.url }}" alt="{{ product.name }}" style="max-width: 300px;">
+            </a>            
+    </div>
+      {% elif product is not None %}
+        <p>Aucun produit trouvé pour ce critère.</p>
+      {% endif %}
+
+
+
     {% for product in products %}
         <div class="product">
             <h3>{{ product.name }}</h3>

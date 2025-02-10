@@ -1,14 +1,26 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from store.models import Product, Cart, Order
+from django.db.models import Sum
 # Create your views here.
 
 
 
 
 def index(request):
-    products = Product.objects.all
-    return render(request, 'store/index.html', context= {"products": products})
+    # Récupérer tous les produits pour afficher les options dans le datalist
+    products = Product.objects.all()
+
+    # Initialiser la variable pour afficher le produit trouvé
+    product = None
+
+    # Vérifier si un formulaire a été soumis
+    if request.method == 'POST':
+        search_slug = request.POST.get('product_slug')
+        if search_slug:
+            product = Product.objects.filter(slug=search_slug).first() 
+    
+    return render(request, 'store/index.html', {'products': products, 'product': product})
 
 
 def product_detail(request, slug):
@@ -33,15 +45,18 @@ def add_to_cart(request, slug):
 
 def cart(request):
     cart = get_object_or_404(Cart, user=request.user)
+    total_quantity = cart.orders.aggregate(Sum('quantity'))['quantity__sum'] or 0
 
-    return render(request, 'store/cart.html', context={"orders" : cart.orders.all()})
-
+    return render(request, 'store/cart.html', context={"orders": cart.orders.all(), "total_quantity": total_quantity})
 
 def delete_cart(request):
-
-    cart= request.user.cart
+    cart = request.user.cart
+    orders = request.user.cart.orders.all()
 
     if cart:
+        # Supprimer toutes les commandes associées au panier
+        orders.delete()
+        # Supprimer le panier
         cart.delete()
 
     return redirect('index')
