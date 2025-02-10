@@ -8,5 +8,6 @@
 <p>{{ order.quantity }}</p>
 
 {% endfor %}
+<a href="{% url 'valid_cart' %}" class="btn btn-primary">Valider le panier</a>
 <a href="{% url 'delete_cart' %}">supp</a>
 {% endblock %}

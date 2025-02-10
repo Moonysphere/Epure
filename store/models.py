@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from epure.settings import AUTH_USER_MODEL
+from django.core.validators import MinValueValidator, MaxValueValidator  # ✅ Ajout des validateurs
 """
 Product
 -name
@@ -22,6 +23,10 @@ class Product(models.Model) :
     price = models.FloatField(default=0.0)
     stock = models.IntegerField(default=0)
     description = models.TextField(blank=True)
+    rating = models.FloatField(
+        default=0,
+        validators=[MinValueValidator(0.0), MaxValueValidator(5.0)]
+    )
     thumbnail = models.ImageField(upload_to="products", blank=True, null=True)
 
     def __str__(self):
