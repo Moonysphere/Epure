@@ -14,6 +14,7 @@
     </datalist>
 
       <form method="GET">
+        {% csrf_token %}
         <label for="sort_by">Trier par :</label>
         <select name="sort_by" onchange="this.form.submit()">
             <option value="">-- Sélectionner --</option>
