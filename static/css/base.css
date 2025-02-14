@@ -3,7 +3,7 @@
   padding: 0;
   box-sizing: border-box;
 }
-header { 
+header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -11,10 +11,9 @@ header {
 }
 
 .Boutton {
-  background-color: #2E073F;
-  
+  background-color: #94799f;
 }
-.Boutton a{
+.Boutton a {
   color: white;
   text-decoration: none;
 }
@@ -25,7 +24,6 @@ header {
   display: block;
   padding: 1rem;
 }
-
 
 body {
   background-color: #c8acd6;
