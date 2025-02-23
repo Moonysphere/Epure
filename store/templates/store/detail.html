@@ -1,10 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<img src="{{ product.thumbnail.url }}" alt="{{ product.name }}" style="max-width: 300px;">
-
+<div class="detail-product">
 <h2>{{ product.name }}</h2>
-<h3>{{ product.price }}</h3>
+<img class="img-product" src="{{ product.thumbnail.url }}" alt="{{ product.name }}" style="max-width: 300px;">
+<h3>{{ product.price }}€</h3>
 
 <p>{{ product.description }}</p>
+<p>{{ product.stock }} en stock</p>
+{% if user.is_authenticated %}
+<p><a href="{% url 'add_to_cart' product.slug %}">Ajouter</a></p>
+{% endif %}
+</div>
 {% endblock %}

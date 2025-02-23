@@ -1,16 +1,77 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
+
+<div id="product-list">
+  <form action="" method="POST">
+    {% csrf_token %}
+    <input
+      type="text"
+      name="product_name"
+      list="products"
+      placeholder="Rechercher un produit" />
+    <datalist id="products">
+      {% for product in products %}
+      <option value="{{ product.name }}">{% endfor %}</option>
+    </datalist>
+</form>
+
+<!-- Affichage du produit trouvé (si existant) -->
+{% if product_list %}
+  <h3>Skins trouvés :</h3>
+  <div class="product_result">
+  {% for product in product_list %}
+    <div class="product">
+      <h3 class="product_name">{{ product.name }}</h3>
+      <a href="{{ product.get_absolute_url }}">
+        <img src="{{ product.thumbnail.url }}" alt="{{ product.name }}" style="max-width: 300px" />
+      </a>
+    </div>
+  {% endfor %}
+</div>
+{% elif product_list is not None %}
+  <p>Aucun produit trouvé pour ce critère.</p>
+{% endif %}
 
 
-{% block content %}
 
 
-{% for product in products %}
 
-<h2>{{ product.name }}</h2>
-<a href="{{ product.get_absolute_url }}">
-<img src="{{ product.thumbnail.url }}" alt="{{ product.name }}" style="max-width: 300px;">
-</a>
+<div id="product-list">
+  <form method="GET">
+    <label for="sort_by">Trier par :</label>
+    <select name="sort_by" id="sort_by" >
+        <option value="">-- Sélectionner --</option>
+        <option value="price_asc" {% if sort_by == "price_asc" %}selected{% endif %}>Prix croissant</option>
+        <option value="price_desc" {% if sort_by == "price_desc" %}selected{% endif %}>Prix décroissant</option>
+        <option value="rating_asc" {% if sort_by == "rating_asc" %}selected{% endif %}>Note croissante</option>
+        <option value="rating_desc" {% if sort_by == "rating_desc" %}selected{% endif %}>Note décroissante</option>
+    </select>
+</form>
 
-{% endfor %}
+
+  <div class="product-list">
+      {% for product in products %}
+      <a class="product_link" href="{{ product.get_absolute_url }}">
+      <div class="product">
+          <h3>{{ product.name }}</h3>
+          <p>Note : {{ product.rating }}</p>
+              {% if product.thumbnail %}
+                  <img src="{{ product.thumbnail.url }}" alt="{{ product.name }}" style="max-width: 300px;">
+              {% else %}
+                  <p>Aucune image disponible</p>
+              {% endif %}
+          <h3>{{ product.price }}€</h3>
+          
+        </div>
+      </a>
+      {% empty %}
+      <p>Aucun produit trouvé.</p>
+      {% endfor %}
+  </div>
+</div>
+<script>
+  document.getElementById("sort_by").addEventListener("change", function() {
+      this.form.submit();
+  });
+</script>
 
 {% endblock %}

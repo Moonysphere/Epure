@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Mes Commandes</h1>
+
+{% if orders %}
+    {% for order in orders %}
+        <div class="order-item">
+            <h2>{{ order.product.name }}</h2>
+            <img src="{{ order.product.thumbnail.url }}" alt="{{ order.product.name }}" style="max-width: 300px;">
+            <p>Quantité : {{ order.quantity }}</p>
+            <p>Prix : {{ order.product.price }} €</p>
+            <p>Date de commande : {{ order.date_ordered }}</p>
+        </div>
+        <hr>
+    {% endfor %}
+{% else %}
+    <p>Vous n'avez pas encore passé de commandes.</p>
+{% endif %}
+{% endblock %}
