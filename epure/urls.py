@@ -26,8 +26,8 @@ from epure import settings
 urlpatterns = [
     path('', index, name='index'),
     path('signup/', signup, name='signup'),
-    path('logout/', logout_user, name='logout'),
     path('login/', login_user, name='login'),
+    path('logout/', logout_user, name='logout'),
     path('page_user/', page_user, name='page_user'),
     path('cart/', cart, name='cart'),
     path('cart/delete', delete_cart, name='delete_cart'),

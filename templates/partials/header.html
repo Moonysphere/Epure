@@ -5,23 +5,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <script src="https://kit.fontawesome.com/231864c23d.js" crossorigin="anonymous"></script>
     <title>Epure</title>
   </head>
   <body>
     <header>
     <a href="{% url 'index' %}">
-      <img class="Logo" src="{% static 'img/epure.jpg' %}" alt="Logo Epure" />
+      <h1 class="title">EPURE</h1>
     </a>
 
+    <section class="log">
     {% if user.is_authenticated%} 
-    <a href="{% url 'page_user' %}">{{ user.username }}</a>
+    <a href="{% url 'page_user' %}"><i class="fa-solid fa-user"></i>{{ user.username }}</a>
     <a href="{% url 'logout' %}">deconnexion</a>
     {% else %}
     <div class="Connexion">
-    <button class="Boutton" type="button"> <a  href="{% url 'login' %}">Connexion</a></button>
-    <button class="Boutton" type="button"><a  href="{% url 'signup' %}">S'inscrire</a></button>
+    <button class="Boutton" type="button"><i class="fa-solid fa-user"></i> <a  href="{% url 'login' %}">Connexion</a></button>
+    <button class="Boutton" type="button"><i class="fa-solid fa-user-plus"></i><a  href="{% url 'signup' %}">S'inscrire</a></button>
    {% endif %} {% if user.cart %}</div>
     <a href="{% url 'cart' %}">voir panier ({{ user.cart.order.count }})</a>
     {% endif %}
+  </section>
 </header>
 

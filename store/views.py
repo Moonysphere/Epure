@@ -9,13 +9,13 @@ from store.models import Product, Cart, Order
 def index(request):
     # Récupérer tous les produits pour afficher les options dans le datalist
     products = Product.objects.all()
-    product = None  # Variable pour stocker le produit trouvé (via le formulaire de recherche)
+    product_list = None  # Change "product" en "product_list" pour stocker plusieurs résultats
 
     # Vérifier si une recherche a été effectuée via le formulaire
     if request.method == 'POST':
-        search_slug = request.POST.get('product_slug')
-        if search_slug:
-            product = Product.objects.filter(slug=search_slug).first()
+        search_name = request.POST.get('product_name')
+        if search_name:
+            product_list = Product.objects.filter(name=search_name)  # ✅ Récupère une liste
 
     # Gérer le tri des produits
     sort_by = request.GET.get('sort_by')
@@ -28,9 +28,11 @@ def index(request):
     elif sort_by == "rating_desc":
         products = products.order_by("-rating")  # Rating décroissant
 
-    return render(request, 'store/index.html', {'products': products, 'product': product, 'sort_by': sort_by})
-
-
+    return render(request, 'store/index.html', {
+        'products': products,
+        'product_list': product_list,  # Change ici aussi
+        'sort_by': sort_by
+    })
 
 def product_detail(request, slug):
     product = get_object_or_404(Product, slug=slug)
